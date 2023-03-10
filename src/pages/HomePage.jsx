@@ -1,19 +1,35 @@
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 import { List } from '../components/List';
 import { Card } from '../components/Card';
 import { Controls } from '../components/Controls';
+import { selectCountriesInfo, selectAllCountries } from '../store/countries/countries-selectors';
+import { loadCountries } from '../store/countries/countries-createActions';
 
 export const HomePage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const countries = useSelector(selectAllCountries);
+  const {status, error, qty} = useSelector(selectCountriesInfo)
 
-  const countries = [];
+  useEffect(() => {
+    if(!qty) {
+      dispatch(loadCountries())
+    }
+  }, [qty, dispatch]);
+
 
   return (
     <>
       <Controls />
 
-      <List>
+      {error && <h2>Can't fetch data</h2>}
+      {status === 'loading' && <h2>Data is loading...</h2>}
+
+      {status === 'received' && (
+        <List>
             {countries.map((c) => {
               const countryInfo = {
                 img: c.flags.png,
@@ -43,6 +59,8 @@ export const HomePage = () => {
               );
             })}
           </List>
+      )}
+      
     </>
   );
 };
