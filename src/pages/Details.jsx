@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { IoArrowBack } from 'react-icons/io5';
 import { selectDetails } from '../store/details/details-selectors';
 import { loadCoutryByName } from '../store/details/details-createActions';
+import { clearDetails } from '../store/details/details-createActions';
 
 import { Button } from '../components/Button';
 import { Info } from '../components/Info';
@@ -19,6 +20,7 @@ export const Details = () => {
 
   useEffect(() => {
     dispatch(loadCoutryByName(name))
+    return (() => dispatch(clearDetails()))
   }, [name, dispatch]);
 
   return (
