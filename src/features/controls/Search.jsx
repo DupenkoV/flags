@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSearch } from '../store/constrols/controls-selectors';
-import { setSearch } from '../store/constrols/controls-createActions';
+import { selectSearch } from './controls-slice';
+import { setSearch } from './controls-slice'; 
 
 import { IoSearch } from 'react-icons/io5';
 
