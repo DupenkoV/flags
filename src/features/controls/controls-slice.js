@@ -8,7 +8,7 @@ const initialState = {
 const controlSlice = createSlice({
     name: '@@controls',
     initialState,
-    reducer: {
+    reducers: {
         setSearch: (state, action) => {
             state.search = action.payload;
         },
