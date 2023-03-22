@@ -1,25 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { List } from "../../components/List";
 import { Card } from "../../components/Card";
-import { selectCountriesInfo, selectVisibleCountries } from "./countries-slice";
-import { loadCountries } from "./countries-slice";
-import { selectControls } from "../controls/controls-slice";
+import { useCountries } from './use-countries';
 
 const CountryList = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch()
-    const {search, region} = useSelector(selectControls)
-    const countries = useSelector(state => selectVisibleCountries(state, {search, region}));
-    const {status, error, qty} = useSelector(selectCountriesInfo)  
-  
-  
-    useEffect(() => {
-      if(!qty) {
-        dispatch(loadCountries())
-      }
-    }, [qty, dispatch]);
+  const navigate = useNavigate();
+  const [countries, {error, status}] = useCountries()
 
   return (
     <>
